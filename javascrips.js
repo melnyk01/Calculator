@@ -10,3 +10,7 @@ function multiply(a,b) {
 function divide(a,b) {
     return a / b
 }
+
+let number = 0;
+let operator = '';
+let secondNumber = 0;
