@@ -19,3 +19,28 @@ div#input {
     border-color: rgb(0, 0, 0);
     background-color: white;
 }
+
+button {
+    width: 50px;
+    height: 40px;
+    margin-bottom: 5px;
+    font-size: x-large;
+}
+
+div#buttons {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+button#calculate,
+button#clear {
+    height: 50px;
+    width: 50px;
+}
+
+button.number {
+    width: 40px;
+
+}
