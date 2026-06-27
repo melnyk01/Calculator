@@ -20,7 +20,10 @@ let secondNumber = '';
 let operator = '';
 let result = '';
 
-
+let dotButton = document.getElementById('dot');
+dotButton.addEventListener('click', () => {
+    dotButton.setAttribute('disabled', '');
+})
 //Clear the input field
 let clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
@@ -73,6 +76,7 @@ operatorButtons.addEventListener('click', (e) => {
         operator = e.target.textContent;
         input.textContent = number + operator
     }
+    dotButton.removeAttribute('disabled');
     });
 
 // Calculates the input numbers
@@ -87,7 +91,7 @@ calculate.addEventListener('click', () => {
         result = operate(number, secondNumber);
         input.textContent = result;
     } 
-    
+    dotButton.removeAttribute('disabled');
 
 
 });
