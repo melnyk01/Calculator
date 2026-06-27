@@ -25,7 +25,7 @@ clearButton.addEventListener('click', () => {
     operator = '';
 });
 
-//Getting first number
+
 let input = document.querySelector('#input')
 let numberButtons = document.querySelector('#numbers');
 console.log(numberButtons)
@@ -42,6 +42,8 @@ numberButtons.addEventListener
     console.log(number, secondNumber, operator);
 });
 
+//Getting operator
+
 let operatorButtons = document.querySelector('#operators');
 operatorButtons.addEventListener('click', (e) => {
     console.log(number, secondNumber, operator);
@@ -55,34 +57,44 @@ operatorButtons.addEventListener('click', (e) => {
         input.textContent = number + operator;
     }
     });
-//Getting operator
 
 // Calculates the input numbers
+
 let calculate = document.querySelector('button#calculate');
 calculate.addEventListener('click', () => {
     if (input.textContent === '') {
         alert("Can't evaluate void!")
     } else {
-        let result = operate(number, secondNumber)
-        input.textContent = result;
+        input.textContent = operate(number, secondNumber)
     }
 
 
 });
 
 function operate(a, b) {
-    if (operator == '+') {
-        return String(add(number,secondNumber));
+    let result = '';
+
+    switch(operator) {
+        case "+":
+            result = add(a,b);
+            break;
+        case "-":
+            result = subtract(a,b);
+            break;
+        case "*":
+            result = multiply(a,b);
+            break;
+        case "/":
+            result = divide(a,b);
+            break;
+        default:
+            result = a;
+            break;
     }
-    if (operator == '-') {
-        return String(subtract(number,secondNumber));
+    if (result % 1 != 0) {
+        result = result.toFixed(3);
+        console.log(result);
     }
-    if (operator == '*') {
-        return String(multiply(number,secondNumber));
-    }
-    if (operator == '/') {
-        return String(divide(number,secondNumber));
-    }
-    else return String(number);
     
+    return String(result)
 }
