@@ -10,7 +10,11 @@ function multiply(a, b) {
 function divide(a, b) {
     return +a / +b
 }
-
+function zeroDivision() {
+    alert("Can't divide by 0")
+    secondNumber = '';
+    input.textContent = number + operator
+}
 let number = '';
 let secondNumber = '';
 let operator = '';
@@ -50,11 +54,13 @@ operatorButtons.addEventListener('click', (e) => {
     if (!operator) {
         input.textContent += e.target.textContent;
         operator = e.target.textContent;
-    } else {
+    } else if (secondNumber != '0') {
         number = operate(number,secondNumber);
         secondNumber = ''
         operator = e.target.textContent;
         input.textContent = number + operator;
+    } else {
+        zeroDivision()
     }
     });
 
@@ -64,6 +70,8 @@ let calculate = document.querySelector('button#calculate');
 calculate.addEventListener('click', () => {
     if (input.textContent === '') {
         alert("Can't evaluate void!")
+    } else if (secondNumber === "0") {
+        zeroDivision()
     } else {
         input.textContent = operate(number, secondNumber)
     }
