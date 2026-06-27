@@ -18,6 +18,7 @@ function zeroDivision() {
 let number = '';
 let secondNumber = '';
 let operator = '';
+let result = '';
 
 
 //Clear the input field
@@ -35,6 +36,13 @@ let numberButtons = document.querySelector('#numbers');
 console.log(numberButtons)
 numberButtons.addEventListener
     ('click', (e) => {
+    if (result) {
+        input.textContent = '';
+        result = '';
+        number = '';
+        secondNumber = '';
+        operator = '';
+    }
     if (!operator) {
         input.textContent += e.target.textContent;
         number += e.target.textContent;
@@ -54,13 +62,16 @@ operatorButtons.addEventListener('click', (e) => {
     if (!operator) {
         input.textContent += e.target.textContent;
         operator = e.target.textContent;
-    } else if (secondNumber != '0') {
+    } else if (secondNumber === '0' && operator === '/') {
+        zeroDivision()
+    } else if (secondNumber) {
         number = operate(number,secondNumber);
         secondNumber = ''
         operator = e.target.textContent;
         input.textContent = number + operator;
     } else {
-        zeroDivision()
+        operator = e.target.textContent;
+        input.textContent = number + operator
     }
     });
 
@@ -70,11 +81,13 @@ let calculate = document.querySelector('button#calculate');
 calculate.addEventListener('click', () => {
     if (input.textContent === '') {
         alert("Can't evaluate void!")
-    } else if (secondNumber === "0") {
+    } else if (secondNumber === "0"  && operator === '/') {
         zeroDivision()
-    } else {
-        input.textContent = operate(number, secondNumber)
-    }
+    } else if (secondNumber) {
+        result = operate(number, secondNumber);
+        input.textContent = result;
+    } 
+    
 
 
 });
