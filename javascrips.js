@@ -28,7 +28,8 @@ clearButton.addEventListener('click', () => {
 //Getting first number
 let input = document.querySelector('#input')
 let numberButtons = document.querySelector('#numbers');
-let inputNumber = numberButtons.addEventListener
+console.log(numberButtons)
+numberButtons.addEventListener
     ('click', (e) => {
     if (!operator) {
         input.textContent += e.target.textContent;
@@ -42,9 +43,17 @@ let inputNumber = numberButtons.addEventListener
 });
 
 let operatorButtons = document.querySelector('#operators');
-    operator = operatorButtons.addEventListener('click', (e)=> {
-    input.textContent += e.target.textContent;
-    operator = e.target.textContent;
+operatorButtons.addEventListener('click', (e) => {
+    console.log(number, secondNumber, operator);
+    if (!operator) {
+        input.textContent += e.target.textContent;
+        operator = e.target.textContent;
+    } else {
+        number = operate(number,secondNumber);
+        secondNumber = ''
+        operator = e.target.textContent;
+        input.textContent = number + operator;
+    }
     });
 //Getting operator
 
@@ -54,21 +63,19 @@ calculate.addEventListener('click', () => {
     let result = operate(number, secondNumber)
     input.textContent = result;
 
-
-    
 });
 
 function operate(a, b) {
     if (operator == '+') {
-        return (add(number,secondNumber));
+        return String(add(number,secondNumber));
     }
     if (operator == '-') {
-        return (subtract(number,secondNumber));
+        return String(subtract(number,secondNumber));
     }
     if (operator == '*') {
-        return (multiply(number,secondNumber));
+        return String(multiply(number,secondNumber));
     }
     if (operator == '/') {
-        return (divide(number,secondNumber));
+        return String(divide(number,secondNumber));
     }
 }
