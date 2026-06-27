@@ -60,8 +60,13 @@ operatorButtons.addEventListener('click', (e) => {
 // Calculates the input numbers
 let calculate = document.querySelector('button#calculate');
 calculate.addEventListener('click', () => {
-    let result = operate(number, secondNumber)
-    input.textContent = result;
+    if (input.textContent === '') {
+        alert("Can't evaluate void!")
+    } else {
+        let result = operate(number, secondNumber)
+        input.textContent = result;
+    }
+
 
 });
 
@@ -78,4 +83,6 @@ function operate(a, b) {
     if (operator == '/') {
         return String(divide(number,secondNumber));
     }
+    else return String(number);
+    
 }
