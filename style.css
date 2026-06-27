@@ -1,46 +1,36 @@
 body {
     display: flex;
+    background-color: cadetblue;
     align-content: center;
     justify-content: center;
     height: 100vh;
-    background-color: cadetblue;
+    
 }
 div#calculator {
-    
+    display: flex;
     background-color: grey;
     width: 300px;
     height: 500px;
     align-content: center;
     justify-content: center;
+    border: 10px solid black;
+    flex-flow: column;
+    gap: 5px;
 }
 
 div#input {
-    height: 50px;
-    border-color: rgb(0, 0, 0);
     background-color: white;
+    height: 100px;
 }
 
 button {
-    width: 50px;
+    width: 45px;
     height: 40px;
-    margin-bottom: 5px;
-    font-size: x-large;
+
+    font-size: large;
 }
 
-div#buttons {
+#buttons {
     display: flex;
-    align-content: center;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-button#calculate,
-button#clear {
-    height: 50px;
-    width: 50px;
-}
-
-button.number {
-    width: 40px;
 
 }
