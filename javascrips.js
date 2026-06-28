@@ -15,14 +15,44 @@ function zeroDivision() {
     secondNumber = '';
     input.textContent = number + operator
 }
+function operate(a, b) {
+    let result = '';
+
+    switch(operator) {
+        case "+":
+            result = add(a,b);
+            break;
+        case "-":
+            result = subtract(a,b);
+            break;
+        case "*":
+            result = multiply(a,b);
+            break;
+        case "/":
+            result = divide(a,b);
+            break;
+        default:
+            result = a;
+            break;
+    }
+    if (result % 1 != 0) {
+        result = result.toFixed(3);
+        console.log(result);
+    }
+    
+    return String(result)
+}
+
 let number = '';
 let secondNumber = '';
 let operator = '';
 let result = '';
+let isDecimal = false;
 
 let dotButton = document.getElementById('dot');
 dotButton.addEventListener('click', () => {
     dotButton.setAttribute('disabled', '');
+    isDecimal = true;
 })
 //Clear the input field
 let clearButton = document.querySelector('#clear');
@@ -31,24 +61,32 @@ clearButton.addEventListener('click', () => {
     number = '';
     secondNumber = '';
     operator = '';
+    isDecimal = false;
+    dotButton.removeAttribute('disabled');
 });
 
 let clearLast = document.querySelector('#clear-last');
 clearLast.addEventListener('click', () => {
+    console.log('before ' + number, secondNumber, operator, result);
     if (result && !operator) {
         input.textContent = '';
         result = '';
         number = '';
         secondNumber = '';
         operator = '';
-    } else if (input.textContent.slice(-1).includes('+-*/')) {
+    } else if ('+-*/'.includes(input.textContent.slice(-1))) {
         operator = '';
         input.textContent = input.textContent.slice(0, -1);
-    } else if (result && operator) {
-        input.textContent = input.textContent.slice(0, -1);
-        number = input.textContent
-        operator = '';
-        secondNumber = '';
+    } else if (input.textContent.slice(-1) === '.') {
+        dotButton.removeAttribute('disabled');
+        isDecimal = false;
+        if (secondNumber) {
+            secondNumber = secondNumber.slice(0, -1);
+            input.textContent = input.textContent.slice(0, -1);
+        } else {
+            input.textContent = input.textContent.slice(0, -1);
+            number = input.textContent
+        }
     } else if (secondNumber) {
         secondNumber = secondNumber.slice(0, -1);
         input.textContent = input.textContent.slice(0, -1);
@@ -56,12 +94,13 @@ clearLast.addEventListener('click', () => {
         input.textContent = input.textContent.slice(0, -1);
         number = input.textContent
     }
-    console.log(number, secondNumber, operator);
+    console.log('after ' + number, secondNumber, operator, result);
+    
 })
 
 let input = document.querySelector('#input')
 let numberButtons = document.querySelector('#numbers');
-console.log(numberButtons)
+
 numberButtons.addEventListener
     ('click', (e) => {
     if (result && !operator) {
@@ -102,6 +141,7 @@ operatorButtons.addEventListener('click', (e) => {
         input.textContent = number + operator
     }
     dotButton.removeAttribute('disabled');
+    isDecimal = false;
     });
 
 // Calculates the input numbers
@@ -120,34 +160,99 @@ calculate.addEventListener('click', () => {
         secondNumber = '';
     } 
     dotButton.removeAttribute('disabled');
+    isDecimal = false;
 
 
 });
 
-function operate(a, b) {
-    let result = '';
+// Input from keyboard
 
-    switch(operator) {
-        case "+":
-            result = add(a,b);
-            break;
-        case "-":
-            result = subtract(a,b);
-            break;
-        case "*":
-            result = multiply(a,b);
-            break;
-        case "/":
-            result = divide(a,b);
-            break;
-        default:
-            result = a;
-            break;
+document.addEventListener('keydown', (e) => {
+    const keyName = e.key;
+    console.log(keyName);
+    console.log(input.textContent.slice(-1));
+    if (keyName === 'Backspace') {
+        console.log('before ' + number, secondNumber, operator,     result);
+        if (result && !operator) {
+            input.textContent = '';
+            result = '';
+            number = '';
+            secondNumber = '';
+            operator = '';
+        } else if ('+-*/'.includes(input.textContent.slice(-1))) {
+            operator = '';
+            input.textContent = input.textContent.slice(0, -1);
+        } else if (input.textContent.slice(-1) === '.') {
+            dotButton.removeAttribute('disabled');
+            isDecimal = false;
+            if (secondNumber) {
+                secondNumber = secondNumber.slice(0, -1);
+                input.textContent = input.textContent.slice(0, -1);
+            } else {
+                input.textContent = input.textContent.slice(0, -1);
+                number = input.textContent
+            }
+        } else if (secondNumber) {
+            secondNumber = secondNumber.slice(0, -1);
+            input.textContent = input.textContent.slice(0, -1);
+        } else {
+            input.textContent = input.textContent.slice(0, -1);
+            number = input.textContent
+        }
+        console.log('after ' + number, secondNumber, operator,result);
+    } else if (keyName === 'Enter' || keyName === '=') {
+        if (input.textContent === '') {
+            alert("Can't evaluate void!")
+        } else if (secondNumber === "0"  && operator === '/') {
+            zeroDivision()
+        } else if (secondNumber) {
+            result = operate(number, secondNumber);
+            input.textContent = result;
+            number = result;
+            operator = '';
+            secondNumber = '';
+        } 
+        dotButton.removeAttribute('disabled');
+        isDecimal = false;
+    } else {
+        const isDot = e.key === '.';
+        const isNumber = e.key.match(/[0-9]/);
+        const isOperator = ['+','-','*','/'].includes(e.key);
+        if (isDot && (!isDecimal)) {
+            dotButton.setAttribute('disabled', '');
+            isDecimal = true;
+            if (operator) {
+                input.textContent += keyName;
+                secondNumber += keyName;
+            } else {
+                input.textContent += keyName;
+                number += keyName;        
+            }     
+        }
+        if (isNumber) {
+            if (operator) {
+                input.textContent += keyName;
+                secondNumber += keyName;
+            } else {
+                input.textContent += keyName;
+                number += keyName;        
+            } 
+        } else if (isOperator && !operator) {
+            operator = keyName;
+            input.textContent += keyName;
+            dotButton.removeAttribute('disabled');
+            isDecimal = false;
+        } else if (operator && secondNumber && isOperator) {
+            number = operate(number,secondNumber);
+            operator = keyName; 
+            input.textContent = number + operator;
+            secondNumber = '';
+            dotButton.removeAttribute('disabled');
+            isDecimal = false;
+        }
+            
     }
-    if (result % 1 != 0) {
-        result = result.toFixed(3);
-        console.log(result);
-    }
+
+    console.log(number, secondNumber, operator);
     
-    return String(result)
-}
+})
