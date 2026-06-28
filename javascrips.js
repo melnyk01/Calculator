@@ -33,13 +33,38 @@ clearButton.addEventListener('click', () => {
     operator = '';
 });
 
+let clearLast = document.querySelector('#clear-last');
+clearLast.addEventListener('click', () => {
+    if (result && !operator) {
+        input.textContent = '';
+        result = '';
+        number = '';
+        secondNumber = '';
+        operator = '';
+    } else if (input.textContent.slice(-1).includes('+-*/')) {
+        operator = '';
+        input.textContent = input.textContent.slice(0, -1);
+    } else if (result && operator) {
+        input.textContent = input.textContent.slice(0, -1);
+        number = input.textContent
+        operator = '';
+        secondNumber = '';
+    } else if (secondNumber) {
+        secondNumber = secondNumber.slice(0, -1);
+        input.textContent = input.textContent.slice(0, -1);
+    } else {
+        input.textContent = input.textContent.slice(0, -1);
+        number = input.textContent
+    }
+    console.log(number, secondNumber, operator);
+})
 
 let input = document.querySelector('#input')
 let numberButtons = document.querySelector('#numbers');
 console.log(numberButtons)
 numberButtons.addEventListener
     ('click', (e) => {
-    if (result) {
+    if (result && !operator) {
         input.textContent = '';
         result = '';
         number = '';
@@ -53,15 +78,15 @@ numberButtons.addEventListener
         input.textContent += e.target.textContent;
         secondNumber += e.target.textContent;
         };
+    console.log(number, secondNumber, operator);    
 
-    console.log(number, secondNumber, operator);
 });
 
 //Getting operator
 
 let operatorButtons = document.querySelector('#operators');
 operatorButtons.addEventListener('click', (e) => {
-    console.log(number, secondNumber, operator);
+
     if (!operator) {
         input.textContent += e.target.textContent;
         operator = e.target.textContent;
@@ -90,6 +115,9 @@ calculate.addEventListener('click', () => {
     } else if (secondNumber) {
         result = operate(number, secondNumber);
         input.textContent = result;
+        number = result;
+        operator = '';
+        secondNumber = '';
     } 
     dotButton.removeAttribute('disabled');
 
