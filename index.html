@@ -7,40 +7,49 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="calculator">
-        <div id="input"></div>
-        <div id="buttons">
-            <div id="numbers">
-                <button class="number" id="number7">7</button>
-                <button class="number" id="number8">8</button>
-                <button class="number" id="number9">9</button>
-                <button class="number" id="number4">4</button>
-                <button class="number" id="number5">5</button>
-                <button class="number" id="number6">6</button>
-                <button class="number" id="number1">1</button>
-                <button class="number" id="number2">2</button>
-                <button class="number" id="number3">3</button>
-                <button class="number" id="number0">0</button>
-                <button class="number" id="dot">.</button>
+    <div class="header">
+        <div id="header-text">Calculator by</div>
+        <div id="dev"><a href="https://github.com/melnyk01">melnyk01</a></div>
+    </div>
+
+
+    <div class="content">
+        <div id="calculator">
+            <div id="input"></div>
+            <div id="buttons">
+                <div id="numbers">
+                    <button id="number7">7</button>
+                    <button id="number8">8</button>
+                    <button id="number9">9</button>
+                    <button id="number4">4</button>
+                    <button id="number5">5</button>
+                    <button id="number6">6</button>
+                    <button id="number1">1</button>
+                    <button id="number2">2</button>
+                    <button id="number3">3</button>
+                    <button id="number0">0</button>
+                    <button id="dot">.</button>
+                </div>
+                <div id="operators">
+                    <button id="add">+</button>
+                    <button id="subtract">-</button>
+                    <button id="multiply">*</button>
+                    <button id="divide">/</button>
+                </div>
+                <div id="functions">
+                    <button id="clear">AC</button>
+                    <button id="clear-last">C</button>
+                    <button id="calculate">=</button>
+                </div>
+                
             </div>
-            <div id="operators">
-                <button id="add">+</button>
-                <button id="subtract">-</button>
-                <button id="multiply">*</button>
-                <button id="divide">/</button>
-            </div>
-            <div id="clear">
-                <button id="clear">clear</button>
-            </div>
-            <div id="calculate">
-                <button id="calculate">=</button>
-            </div>
-            <div id="clear-last">
-                <button id="clear-last"><-</button>
-            </div>
-            
         </div>
     </div>
+
+    <div class="footer">
+        <div>Project for <a href="https://www.theodinproject.com">The Odin Project</a></div>
+    </div>
+
     <script src="javascrips.js"></script>
 </body>
 </html>
