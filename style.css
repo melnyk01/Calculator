@@ -30,17 +30,24 @@ div#calculator {
     display: flex;
     background-color: grey;
     width: 272px;
-    height: 300px;
-    border: 10px solid black;
+    height: 310px;
+    border: 10px solid rgb(0, 0, 0);
+    border-radius: 30px;
     flex-flow: column;
 
 }
 
 div#input {
-    background-color: white;
+    background-color: rgb(201, 193, 193);
     height: 100px;
     margin: 12px;
     margin-bottom: 8px;
+    font-size: xx-large;
+    text-align: end;
+    align-content: center;
+    border-radius: 15px;
+    color:  #1f2937;
+    
 }
 
 div#buttons {
@@ -48,17 +55,23 @@ div#buttons {
     justify-content: center;
     width: 250px;
     margin: 12px;
+
 }
 
 button {
-    height: 45px;
-    width: 45px;
+    height: 46px;
+    width: 46px;
     font-size: x-large;
-    margin: 0.5px;
+
+    background-color: #ee9b0b;
+    color: #1f2937;
+    border-style: none;
+    border-radius: 11px;
+    margin: 2px 0;
 }
 
 div#numbers {
-    width: 550px;
+    width: 580px;
 }
 
 button#number0 {

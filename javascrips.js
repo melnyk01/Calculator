@@ -103,6 +103,7 @@ let numberButtons = document.querySelector('#numbers');
 
 numberButtons.addEventListener
     ('click', (e) => {
+    if (e.target.tagName !== 'BUTTON') return;
     if (result && !operator) {
         input.textContent = '';
         result = '';
@@ -125,7 +126,7 @@ numberButtons.addEventListener
 
 let operatorButtons = document.querySelector('#operators');
 operatorButtons.addEventListener('click', (e) => {
-
+    
     if (!operator) {
         input.textContent += e.target.textContent;
         operator = e.target.textContent;
